@@ -1,0 +1,11 @@
+= (text) => let
+    apikey      = "<<Replace your APIKey here>>",
+    endpoint    = "<<Replace your endpoint link here>>",
+    jsontext    = Text.FromBinary(Json.FromValue(Text.Start(Text.Trim(text), 5000))),
+    jsonbody    = "{ documents: [ { language: ""en"", id: ""0"", text: " & jsontext & " } ] }",
+    bytesbody   = Text.ToBinary(jsonbody),
+    headers     = [#"Ocp-Apim-Subscription-Key" = apikey],
+    bytesresp   = Web.Contents(endpoint, [Headers=headers, Content=bytesbody]),
+    jsonresp    = Json.Document(bytesresp),
+    sentiment   = jsonresp[documents]{0}[confidenceScores]
+in  sentiment
