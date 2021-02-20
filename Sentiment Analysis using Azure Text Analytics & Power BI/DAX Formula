@@ -1,0 +1,1 @@
+Overall Sentiment =  IF(Responses[Sentiment.positive]=1,"Positive",IF(Responses[Sentiment.neutral]=1,"Neutral",IF(Responses[Sentiment.negative]=1,"Negative","NA")))
